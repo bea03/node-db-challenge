@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 const projectRouter = require('./projects/projectRouter.js');
+const taskRouter = require('./tasks/taskRouter.js');
 
 const server = express();
 
@@ -11,6 +12,7 @@ server.use(express.json());
 server.use(cors());
 
 server.use('/api/projects', projectRouter);
+server.use('/api/tasks', taskRouter);
 
 server.get("/", (req, res) => {
     res.send("It's alive!");

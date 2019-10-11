@@ -2,7 +2,8 @@ const db = require("../../data/dbConfig.js");
 
 module.exports = {
     addTo,
-    getThose
+    getThose,
+    getThisByID
 };
 
 function addTo(project) {
@@ -16,20 +17,20 @@ function addTo(project) {
     });
 }
 
-function getThose(projects) {
+function getThose() {
   return db("projects")
     .then(data => {
       const updatedBoolArray = data.map(project => {
-        if (project.completed) {
+        if (project.complete) {
           const updatedBool = {
             ...project,
-            completed: true
+            complete: true
           };
           return updatedBool;
         } else {
           const updatedBool = {
             ...project,
-            completed: false
+            complete: false
           };
           return updatedBool;
         }
@@ -39,4 +40,10 @@ function getThose(projects) {
     .catch(err => {
       return err;
     });
+}
+
+function getThisByID(id) {
+    return db('projects')
+    .where('id', id)
+    .first();
 }
